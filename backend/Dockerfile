@@ -16,8 +16,9 @@ WORKDIR /var/www/html
 
 COPY --from=backend_builder /app/backend/ /var/www/html
 COPY ./index.php /var/www/html
-COPY ./App/Db /var/www/html/App/Db
-COPY ./App/Model /var/www/html/App/Model
+# COPY ./App/Db /var/www/html/App/Db
+# COPY ./App/Model /var/www/html/App/Model
+COPY ./App /var/www/html/App
 
 CMD ["apache2-foreground"]
 

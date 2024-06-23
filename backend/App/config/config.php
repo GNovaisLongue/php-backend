@@ -2,6 +2,8 @@
 
 // database and other settings
 
+namespace App\config;
+
 return [
     'db' => [
         'host' => getenv('PHP_HOST'),
