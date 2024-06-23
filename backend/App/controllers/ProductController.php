@@ -21,9 +21,9 @@ class ProductController {
     require_once __DIR__.'/../views/product_id_view.php';
   }
   public function insertProduct($newProduct) {
-    $product = $this->productModel->insertProduct($newProduct);
+    $this->productModel->insertProduct($newProduct);
   }
   public function deleteProducts($skus) {
-    $product = $this->productModel->deleteProducts($skus);
+    $this->productModel->deleteProducts($skus);
   }
 }
