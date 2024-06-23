@@ -37,19 +37,22 @@ class Product {
     $exists = $stmt->fetchColumn();
     if($exists) {
       header('X-PHP-Response-Code: 400 - SKU already exists', true, 400);
-      return ("SKU already exists");
+      echo "SKU already exists";
+      return;
     } else {
       $stmt = $this->db->prepare('INSERT INTO `products` (sku, name, price, product_type, product_attribute) VALUES (:sku, :name, :price, :product_type, :product_attribute);');
       $stmt->execute($data);
       header('X-PHP-Response-Code: 200 - Successfully Inserted!', true, 200);
-      return ("Successfully Inserted!");
+      echo "Successfully Inserted!";
+      return;
     }
   }
   public function deleteProducts($skus) {
     $placeholders = array_pad([],count($skus),'?');
     $stmt = $this->db->prepare('DELETE FROM `products` WHERE `sku` IN ('.implode(',',$placeholders).')');
     $stmt->execute($skus);
-    return "Successfully Deleted!";
+    echo "Successfully Deleted!";
+    return;
   }
   
 
