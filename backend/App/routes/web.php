@@ -36,8 +36,6 @@ class Web {
       case 'DELETE': //REQUEST_METHOD doesn't have DELETE request; recognizes as POST
         $skus = json_decode(file_get_contents("php://input"), true);
         if(isset($skus)) {
-          echo "\n-------------------------Within DELETE in web.php";
-          var_dump($skus);
           $controller->deleteProducts($skus["sku"]);
         } else {
           die(header('X-PHP-Response-Code: 404 - Failed to parse DELETE content', true, 404));

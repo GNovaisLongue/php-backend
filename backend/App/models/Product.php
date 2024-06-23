@@ -37,84 +37,19 @@ class Product {
     $exists = $stmt->fetchColumn();
     if($exists) {
       header('X-PHP-Response-Code: 400 - SKU already exists', true, 400);
-      echo "SKU already exists";
-      return;
+      die("SKU already exists");
     } else {
       $stmt = $this->db->prepare('INSERT INTO `products` (sku, name, price, product_type, product_attribute) VALUES (:sku, :name, :price, :product_type, :product_attribute);');
       $stmt->execute($data);
       header('X-PHP-Response-Code: 200 - Successfully Inserted!', true, 200);
-      echo "Successfully Inserted!";
-      return;
+      die("Successfully Inserted!");
     }
   }
   public function deleteProducts($skus) {
     $placeholders = array_pad([],count($skus),'?');
     $stmt = $this->db->prepare('DELETE FROM `products` WHERE `sku` IN ('.implode(',',$placeholders).')');
     $stmt->execute($skus);
-    echo "Successfully Deleted!";
-    return;
+    header('X-PHP-Response-Code: 200 - Successfully Deleted!', true, 200);
+    die("Successfully Deleted!");
   }
-  
-
-  //   public function insert($product)
-  //   {
-  //     $fields = array_keys($product);
-  //     $binds = array_pad([],count($fields),'?');
-  //     $query = 'INSERT INTO '.$this->table.' ('.implode(',', $fields).') VALUES ('.implode(',',$binds).')';
-  //     $this->executeQuery($query,array_values($product));
-  //     return "Successfully Inserted!";
-  //   }
-
-  // // Insert new product into the database
-  // public function insert()
-  // {
-  //   $objDatabase = new Database('products');
-  //   $exists = $objDatabase->exists($this->getSku());
-  //   if ($exists === 1)
-  //   {
-  //     header('X-PHP-Response-Code: 400 - SKU already exists', true, 400);
-  //     die("SKU already exists!");
-  //   } else {
-  //     $result = $objDatabase->insert([
-  //       "sku"=>$this->getSku(),
-  //       "name"=>$this->getName(),
-  //       "price"=>$this->getPrice(),
-  //       "product_type"=>$this->getProduct_type(),
-  //       "product_attribute"=>$this->getProduct_attribute()
-  //     ]);
-  //     return(json_encode($result));
-  //   }
-  // }
-
-
-  //   public function insert($product)
-  //   {
-  //     $fields = array_keys($product);
-  //     $binds = array_pad([],count($fields),'?');
-  //     $query = 'INSERT INTO '.$this->table.' ('.implode(',', $fields).') VALUES ('.implode(',',$binds).')';
-  //     $this->executeQuery($query,array_values($product));
-  //     return "Successfully Inserted!";
-  //   }
-
-
-
-  // //Get all products from database
-  // public static function getAllProducts($where = '', $order = '', $limit = '')
-  // {
-  //   return (new Database('products'))->select($where,$order,$limit)->fetchAll(PDO::FETCH_ASSOC);
-  // }
-
-
-  // //Get product by id
-  // public static function getProductById($where = '', $order = '', $limit = '')
-  // {
-  //   return (new Database('products'))->select($where,$order,$limit)->fetchAll(PDO::FETCH_ASSOC);
-  // }
-
-
-  // //Delete a product from database
-  // public static function deleteProduct($data)
-  // {
-  //   return (new Database('products'))->delete($data);
-  // }
 }
