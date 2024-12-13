@@ -3,9 +3,10 @@
 // database and other settings
 
 return [
-    'host'      => $_ENV['DB_HOST'],
-    'dbname'    => $_ENV['DB_DSN'],
-    'user'      => $_ENV['DB_USER'],
-    'pass'      => $_ENV['DB_PASSWD'],
-    'charset'   => $_ENV['DB_CHARSET'],
+    'db_type'   => $_ENV['DB_TYPE'],
+    'host'      => $_ENV['MYSQL_HOST'],
+    'dbname'    => $_ENV['MYSQL_DATABASE'],
+    'user'      => $_ENV['MYSQL_USER'],
+    'pass'      => $_ENV['MYSQL_PASSWORD'],
+    'charset'   => $_ENV['MYSQL_DB_CHARSET'],
 ];

@@ -121,7 +121,7 @@ class Router {
 
       return call_user_func_array($route['controller'], $args);      
     } catch (Exception $e) {
-      return new Response($e->getCode(),$e->getMessage());
+      return (new Response($e->getCode(),$e->getMessage()))->sendResponse();
     }
   }
 

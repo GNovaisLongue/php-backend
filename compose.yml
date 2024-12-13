@@ -1,0 +1,54 @@
+version: "3.9"
+
+volumes:
+  mysql_data:
+networks:
+  server-db: {}
+  # react-server: {}
+
+services:
+  mysql:
+    image: mysql:8.1
+    restart: always
+    env_file:
+      - .env
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 10s
+      retries: 10
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./mysql/:/docker-entrypoint-initdb.d
+    networks:
+      - server-db
+    ports:
+      - 9906:3306
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    volumes:
+      - ./backend/:/var/www/html/
+    networks:
+      - server-db
+    depends_on:
+      mysql:
+        condition: service_healthy
+    ports:
+      - "3000:80"
+
+  phpmyadmin:
+    image: phpmyadmin:5
+    restart: always
+    environment:
+      PMA_HOST: mysql
+    networks:
+      - server-db
+    depends_on:
+      mysql:
+        condition: service_healthy
+    ports:
+      - 8080:80
