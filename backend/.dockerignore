@@ -1,2 +1,8 @@
-/vendor
-/composer.lock
+.git
+.gitignore
+.vscode
+vendor/
+logs/
+.env
+.env*.local
+.env*.prod

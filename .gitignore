@@ -1,3 +1,13 @@
-/backend/vendor
-/backend/composer.lock
-.env
+*.git
+*.gitignore
+*.vscode
+*logs
+*.log
+*build
+*vendor
+*.dockerignore
+*Dockerfile
+*.env
+*.env*.local
+*.env*.prod
+*output
