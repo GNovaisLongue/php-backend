@@ -4,11 +4,6 @@ require_once __DIR__.'/vendor/autoload.php';
 
 use App\Http\Router;
 
-// Load ENV variables
-// $dotenv = Dotenv\Dotenv::createImmutable(__DIR__.'/../'); // when executed locally
-$dotenv = Dotenv\Dotenv::createImmutable(__DIR__); // when executed via docker or other similar service
-$dotenv->load();
-
 // Define the base URL dynamically
 if (isset($_ENV['URL']) && !empty($_ENV['URL'])) {
   define('URL', $_ENV['URL']);
