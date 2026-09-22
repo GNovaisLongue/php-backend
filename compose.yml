@@ -2,17 +2,17 @@ volumes:
   mysql_data:
 networks:
   server-db: {}
-  # react-server: {}
 
 services:
   mysql:
+    container_name: MySQL
     image: mysql:8.1
     restart: always
     env_file:
       - .env
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
-      timeout: 8s
+      timeout: 20s
       retries: 10
     volumes:
       - mysql_data:/var/lib/mysql
@@ -23,6 +23,7 @@ services:
       - 9906:3306
 
   backend:
+    container_name: php-apache
     build:
       context: ./backend
       dockerfile: ./Dockerfile
@@ -31,6 +32,7 @@ services:
     volumes:
       - ./backend/App/:/var/www/html/App
       - ./backend/index.php:/var/www/html/index.php
+      - ./backend/.htaccess:/var/www/html/.htaccess
     networks:
       - server-db
     depends_on:
@@ -40,6 +42,7 @@ services:
       - "3000:80"
 
   phpmyadmin:
+    container_name: mysql-interface
     image: phpmyadmin:5
     restart: always
     environment:

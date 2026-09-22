@@ -1,8 +1,16 @@
 {
   "name": "product-display/mvc",
+  "description": "PHP backend + MySQL (no external runtime dependencies)",
+  "type": "project",
+  "require": {
+    "php": ">=8.1"
+  },
   "autoload": {
     "psr-4": {
       "App\\": "App/"
     }
+  },
+  "config": {
+    "optimize-autoloader": true
   }
 }
